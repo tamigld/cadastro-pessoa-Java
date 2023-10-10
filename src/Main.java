@@ -9,7 +9,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args){
         PessoaFisica metodosPf = new PessoaFisica();
+        PessoaJuridica metodosPj = new PessoaJuridica();
         ArrayList<PessoaFisica> listaPf = new ArrayList<>();
+        ArrayList<PessoaJuridica> listaPj = new ArrayList<>();
 
         System.out.println("Bem-vindo ao sistema de cadastro de Pessosa Físicas e Jurídicas");
 
@@ -23,6 +25,7 @@ public class Main {
 
             switch (opcao){
                 case 1:
+//              cadastro pessoa física
                     int opcaoPf;
 
                     do{
@@ -112,6 +115,83 @@ public class Main {
                     } while (opcaoPf != 0);
 
                 case 2:
+//              opção pessoa jurídica
+                    int opcaoPj;
+
+                    do {
+                        System.out.println("Escolha uma opção: \n 1 - Cadastrar Pessoa Jurídica \n 2- Listar Pessoa Jurídica \n 0 - Voltar ao menu anterior ");
+                        opcaoPj = scanner.nextInt();
+
+                        switch (opcaoPj){
+                            case 1:
+//                          cadastrar pessoa jurídica
+                                PessoaJuridica novaPj = new PessoaJuridica();
+                                Endereco novoEndPj = new Endereco();
+
+//                              System.out.print("Digite o nome da pessoa jurídica que deseja cadastrar: ");
+//                              novaPj.nome = scanner.next();
+
+                                System.out.print("Digite a razão social: ");
+                                novaPj.razaoSocial = scanner.next();
+
+                                System.out.print("Digite o cnpj: ");
+                                novaPj.cnpj = scanner.next();
+
+                                System.out.print("Digite o rendimento mensal (apenas números): ");
+                                novaPj.rendimento = scanner.nextInt();
+
+                                System.out.print("Digite o logradouro: ");
+                                novoEndPj.logradouro = scanner.next();
+
+                                System.out.print("Digite o número: ");
+                                novoEndPj.numero = scanner.next();
+
+                                System.out.print("O endereço informado é comercial? \n Digite S para SIM \n N para NÃO \n");
+                                String endCom;
+                                endCom = scanner.next();
+
+                                if(endCom.equals("S")){
+                                    novoEndPj.endComercial = true;
+                                } else {
+                                    novoEndPj.endComercial = false;
+                                }
+
+                                novaPj.endereco = novoEndPj;
+
+                                listaPj.add(novaPj);
+
+                                System.out.println("Cadastro realizado com sucesso!");
+
+                                break;
+
+                            case 2:
+//                               listar pessoa jurídica
+                                if(!listaPj.isEmpty()){
+                                    for(PessoaJuridica cadaPj : listaPj){
+                                        System.out.println();
+                                        System.out.println("Razão social: " + cadaPj.razaoSocial);
+                                        System.out.println("CNPJ: " + cadaPj.cnpj);
+                                        System.out.println("Endereço: " + cadaPj.endereco.logradouro + "," + cadaPj.endereco.numero);
+                                        System.out.println("Rendimento: " + cadaPj.rendimento);
+                                        System.out.println("Imposto a ser pago: " + metodosPj.CalcularImposto(cadaPj.rendimento));
+                                        System.out.println();
+                                    }
+                                } else {
+                                    System.out.println("Lista vazia.\n Voltando ao menu anterior.");
+                                }
+
+                                System.out.println("Fim da lista.");
+                                break;
+
+                            case 0:
+                                System.out.println("Voltando ao menu anterior.");
+                                break;
+
+                            default:
+                                System.out.println("Opção inválida. \n Insira uma opção VÁLIDA.");
+                                break;
+                         }
+                    } while (opcaoPj != 0);
                     break;
 
                 case 0:
